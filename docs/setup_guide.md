@@ -72,9 +72,9 @@ kind create cluster
 ```
 Recommendation: For Ubuntu 24.04, the binary installation or K3s is the simplest because the official apt repo doesn’t yet support “noble”.
 
-## Create a kubelet systemd service manually
+# Create a kubelet systemd service manually
 
-# Create a file /etc/systemd/system/kubelet.service:
+## Create a file /etc/systemd/system/kubelet.service:
 ```bash
 sudo tee /etc/systemd/system/kubelet.service > /dev/null <<EOF
 [Unit]
@@ -89,7 +89,8 @@ RestartSec=10
 [Install]
 WantedBy=multi-user.target
 EOF
-```bash
+```
+
 ## Enable and start kubelet
 ```bash
 sudo systemctl daemon-reload
