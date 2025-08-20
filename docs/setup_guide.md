@@ -72,6 +72,31 @@ kind create cluster
 ```
 Recommendation: For Ubuntu 24.04, the binary installation or K3s is the simplest because the official apt repo doesn’t yet support “noble”.
 
+## Create a kubelet systemd service manually
+
+# Create a file /etc/systemd/system/kubelet.service:
+```bash
+sudo tee /etc/systemd/system/kubelet.service > /dev/null <<EOF
+[Unit]
+Description=kubelet: The Kubernetes Node Agent
+Documentation=https://kubernetes.io/docs/
+After=network.target
+[Service]
+ExecStart=/usr/local/bin/kubelet
+Restart=always
+StartLimitInterval=0
+RestartSec=10
+[Install]
+WantedBy=multi-user.target
+EOF
+```bash
+## Enable and start kubelet
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable kubelet
+sudo systemctl status kubelet
+```
+
 ## 2. Master Node Setup
 ```bash
 # Initialize Kubernetes Master
