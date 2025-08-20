@@ -1,9 +1,9 @@
 # Kubernetes Learning Repository
 
-Welcome! 🚀  
+Welcome! 
 This repository contains step-by-step commands, scripts, and examples to help you learn Kubernetes from scratch.
 
-## 📂 Repository Structure
+##  Repository Structure
 ```
 kubernetes/
 │── README.md                 # Main introduction & usage guide
@@ -31,5 +31,5 @@ kubernetes/
 └── images/                   # Screenshots/diagrams
 ```
 
-## 📘 Setup Guide
-👉 See full setup instructions in [docs/setup_guide.md](docs/setup_guide.md)
+##  Setup Guide
+ See full setup instructions in [docs/setup_guide.md](docs/setup_guide.md)
