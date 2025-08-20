@@ -25,6 +25,53 @@ apt-get update
 apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 ```
 
+## If above commands are not working then go with Options to install Kubernetes on Ubuntu 24.04
+
+## Option 1: Use official Kubernetes binaries
+
+Instead of apt packages, you can download the binaries directly:
+
+```bash
+# Download kubeadm, kubelet, kubectl binaries
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubeadm"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubelet"
+
+# Make them executable
+chmod +x kubectl kubeadm kubelet
+
+# Move them to /usr/local/bin
+sudo mv kubectl kubeadm kubelet /usr/local/bin/
+
+# Verify
+kubectl version --client
+kubeadm version
+kubelet --version
+
+
+This bypasses apt entirely and works on any Ubuntu version, including 24.04.
+```
+
+## Option 2: Use containerized Kubernetes (Kind or K3s)
+
+K3s is lightweight and works well on new Ubuntu versions:
+```bash
+curl -sfL https://get.k3s.io | sh -
+sudo k3s kubectl get nodes
+
+```
+
+Kind runs Kubernetes in Docker containers, perfect for testing:
+```bash
+sudo apt install -y docker.io
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.25.0/kind-linux-amd64
+chmod +x ./kind
+sudo mv kind /usr/local/bin/
+kind create cluster
+
+```
+Recommendation: For Ubuntu 24.04, the binary installation or K3s is the simplest because the official apt repo doesn’t yet support “noble”.
+
 ## 2. Master Node Setup
 ```bash
 # Initialize Kubernetes Master
